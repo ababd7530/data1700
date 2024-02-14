@@ -1,2 +1,2 @@
 # data1700
-JavaSqr
+JavaScript
