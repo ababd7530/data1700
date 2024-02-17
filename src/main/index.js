@@ -1,47 +1,53 @@
-// Array for å lagre billettobjekter
+// Array to store ticket objects
 let billetter = [];
 
-// Legg til en hendelseslytter for skjemainnsending
+// Add an event listener for form submission
 document.getElementById("billettSkjema").addEventListener("submit", function(event) {
+
     // Hindre standard oppførsel ved skjemainnsending
     event.preventDefault();
 
-    // Hent verdier fra inputfeltene
+    // Retrieve values from input fields
+
     let antall = document.getElementById("antall").value.trim();
     let fornavn = document.getElementById("fornavn").value.trim();
     let etternavn = document.getElementById("etternavn").value.trim();
     let telefon = document.getElementById("telefon").value.trim();
     let email = document.getElementById("email").value.trim();
 
-    // Valider input
+    // Validate input
+
     if (!antall || !fornavn || !etternavn || !telefon || !email) {
         alert("Alle felt må fylles ut");
         return;
     }
 
-    // Valider telefonnummer og e-postadresse
+    // Validate phone number and email adress
+
     if (!validatePhoneNumber(telefon) || !validateEmail(email)) {
         alert("Ugyldig telefonnummer eller e-postadresse");
         return;
     }
 
-    // Legg til billettobjekt i arrayet
+    // Add ticket object to the array
     billetter.push({ antall, fornavn, etternavn, telefon, email });
 
-    // Vis alle billetter på nytt
+    // Dispalay all tickets again
     visAlleBilletter();
 
-    // Tøm inputfeltene
+    // Reset input fields
     resetInputFields();
 });
 
-// Slett alle billetter
+// Delete all tickets
+
 function slettAlleBilletter() {
     billetter = [];
     visAlleBilletter();
 }
 
-// Vis alle billetter på siden
+// Display all tickets on the page
+
 function visAlleBilletter() {
     let output = "";
     billetter.forEach(billett => {
@@ -50,7 +56,8 @@ function visAlleBilletter() {
     document.getElementById("alleBilletter").innerHTML = output;
 }
 
-// Tøm inputfeltene etter billettkjøp
+// Reset input fields after ticket purchase
+
 function resetInputFields() {
     document.getElementById("antall").value = "";
     document.getElementById("fornavn").value = "";
@@ -59,13 +66,15 @@ function resetInputFields() {
     document.getElementById("email").value = "";
 }
 
-// Valider telefonnummer
+// Validate phone number
+
 function validatePhoneNumber(phoneNumber) {
     let phoneRegex = /^[0-9]{8}$/;
     return phoneRegex.test(phoneNumber);
 }
 
-// Valider e-postadresse
+// Validdate e-mail
+
 function validateEmail(email) {
     let emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(email);
